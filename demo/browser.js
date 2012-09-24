@@ -87,7 +87,7 @@
             if (img1El.loaded && img2El.loaded) {
                 id = new ImageDash(64, 10);
                 comparisonResult = id.compareImages(img1El, img2El);
-                percentage = ((1 - (comparisonResult + 4) / 8) * 100).toFixed(2).toString();
+                percentage = (comparisonResult * 100).toFixed(2).toString();
                 document.getElementById('result-container').setAttribute('style', 'display: block');
                 document.getElementById('result').innerHTML = percentage + '%';
             } else {
