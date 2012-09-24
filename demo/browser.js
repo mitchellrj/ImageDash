@@ -34,16 +34,16 @@
     }
 
     window.addEventListener('load', function (ev) {
-        var image1Loaded = false, image2Loaded = false,
-            img1 = document.getElementById('file1'),
+        var img1 = document.getElementById('file1'),
             img2 = document.getElementById('file2'),
             img1El = document.getElementById('image1'),
             img2El = document.getElementById('image2'),
+            img1ChangeListener, img2ChangeListener,
             placeHolderImage = img1El.src;
 
         function enableComparison() {
             var button = document.getElementById('compare');
-            if (image1Loaded && image2Loaded) {
+            if (img1El.loaded && img2El.loaded) {
                 if (button.hasAttribute('disabled')) {
                     button.removeAttribute('disabled');
                 }
@@ -53,49 +53,38 @@
                 }
             }
         }
-
-        img1.addEventListener('change', function (ev) {
-            document.getElementById('result-container').removeAttribute('style');
-            image1Loaded = false;
-            if (img1.files.length) {
-                readFiles(img1.files, function (img1File) {
-                    if (/^image\//.test(img1File.type)) {
-                        img1El.src = img1File.data;
-                        image1Loaded = true;
-                        enableComparison();
-                    } else {
-                        alert('Not an image file.');
-                        img1.value = null;
-                    }
-                });
-            } else {
-                img1El.src = placeHolderImage;
-                enableComparison();
-            }
-        });
-        img2.addEventListener('change', function (ev) {
-            document.getElementById('result-container').removeAttribute('style');
-            image2Loaded = false;
-            if (img2.files.length) {
-                readFiles(img2.files, function (img2File) {
-                    if (/^image\//.test(img2File.type)) {
-                        img2El.src = img2File.data;
-                        image2Loaded = true;
-                        enableComparison();
-                    } else {
-                        alert('Not an image file.');
-                        img2.value = null;
-                    }
-                });
-            } else {
-                img2El.src = placeHolderImage;
-                enableComparison();
-            }
-        });
+        
+        function makeChangeListener(fileInput, imageElement) {
+            return function () {
+                document.getElementById('result-container').removeAttribute('style');
+                imageElement.loaded = false;
+                if (fileInput.files.length) {
+                    readFiles(fileInput.files, function (imgFile) {
+                        if (/^image\//.test(imgFile.type)) {
+                            imgElement.src = imgFile.data;
+                            imgElement.loaded = true;
+                            enableComparison();
+                        } else {
+                            alert('Not an image file.');
+                            fileInput.value = null;
+                        }
+                    });
+                } else {
+                    imgElement.src = placeHolderImage;
+                    enableComparison();
+                }
+            };
+        }
+        img1ChangeListener = makeChangeListener(img1, img1El);
+        img2ChangeListener = makeChangeListener(img2, img2El);
+        img1.addEventListener('change', img1ChangeListener);
+        img2.addEventListener('change', img2ChangeListener);
+        img1ChangeListener();
+        img2ChangeListener();
         document.getElementById('comparisonform').addEventListener('submit', function (ev) {
             var id, comparisonResult, percentage;
             ev.preventDefault();
-            if (image1Loaded && image2Loaded) {
+            if (img1El.loaded && img2El.loaded) {
                 id = new ImageDash(64, 10);
                 comparisonResult = id.compareImages(img1El, img2El);
                 percentage = ((1 - comparisonResult / 4) * 100).toFixed(2).toString();
