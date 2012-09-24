@@ -210,7 +210,7 @@
                 result += Math.pow((hist1[c][b] || 0) - (hist2[c][b] || 0), 2);
             }
         }
-        return 1 - (result / this.histogramBuckets / 4);
+        return Math.sqrt(result / this.histogramBuckets / 4);
     };
 
     ImageDash.prototype.compareImages = function (img1, img2, reorientate) {
