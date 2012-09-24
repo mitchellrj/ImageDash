@@ -1,0 +1,15 @@
+#fork-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 0;
+}
+.container-fluid {
+	padding-top: 20px;
+}
+.images img {
+	max-height: 300px;
+}
+#result-container {
+	display: none;
+}

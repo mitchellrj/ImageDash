@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Image Comparison Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css"></link>
+    <link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css"></link>
+    <style type="text/css">
+#fork-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 0;
+}
+.container-fluid {
+	padding-top: 20px;
+}
+.images img {
+	max-height: 300px;
+}
+#result-container {
+	display: none;
+}
+    </style>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <a href="https://github.com/mitchellrj/ImageDash">
+      <img id="fork-button"
+           src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
+           alt="Fork me on GitHub">
+    </a>
+    <div class="container-fluid">
+      <h1>JavaScript image comparison</h1>
+      <form action="#" method="post" id="comparisonform">
+        <div class="row-fluid">
+          <h2>Choose 2 images</h2>
+        </div>
+        <div class="row-fluid images">
+          <div class="span6">
+            <img class="img-polaroid" id="image1" src="placeholder.png" />
+          </div>
+          <div class="span6">
+            <img class="img-polaroid" id="image2" src="placeholder.png" />
+          </div>
+        </div>
+        <div class="row-fluid">
+          <div class="span6">
+            <input type="file" id="file1" accept="image/*" />
+          </div>
+          <div class="span6">
+            <input type="file" id="file2" accept="image/*" />
+          </div>
+        </div>
+        <div class="row-fluid">
+          <h2>Compare</h2>
+        </div>
+        <div class="row-fluid">
+          <input disabled class="btn btn-primary btn-large" type="submit" id="compare" value="Compare images" />
+        </div>
+      </form>
+      <div id="result-container">
+        <div class="row-fluid">
+          <h2>Result</h2>
+        </div>
+        <div class="row-fluid">
+          <div class="span12" id="result"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="https://raw.github.com/mitchellrj/ImageDash/master/src/compare.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/mitchellrj/ImageDash/master/demo/browser.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/mitchellrj/ImageDash/master/lib/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+
+</html>
